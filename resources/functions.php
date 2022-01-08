@@ -2,6 +2,22 @@
 
 // fonctions utiles
 
+function set_message($msg){
+    if(!empty($msg)){
+        $_SESSION['message'] = $msg;
+    }else{
+        $msg = "";
+    }
+}
+
+function display_message(){
+    if(isset($_SESSION['message'])){
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+    }
+}
+
+
 function redirect($location){
     header("Location: $location");
 }
@@ -18,8 +34,7 @@ function confirm($result){
     }
 }
 
-function escape_string($string): string
-{
+function escape_string($string): string{
     global $connection;
     return mysqli_real_escape_string($connection, $string);
 }
@@ -78,8 +93,7 @@ echo $category_links;
     }
 }
 
-function get_products_in_cat_page()
-{
+function get_products_in_cat_page(){
 
     //error running this line of code
     $id = escape_string($_GET['id']);
@@ -105,6 +119,52 @@ DELIMETER;
     }
 }
 
+
+
+function get_products_in_shop_page(){
+
+    //error running this line of code
+    //$id = escape_string($_GET['id']);
+    $query = query("SELECT * FROM products");
+
+    confirm($query);
+    while ($row = fetch_array($query)) {
+        $product = <<<DELIMETER
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="{$row['product_image']}" alt="">
+                    <div class="caption">
+                        <h3>{$row['product_title']}</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <p>
+                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="item.php?id={$row['product_id']}" class="btn btn-default">More Info</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+DELIMETER;
+        echo $product;
+    }
+}
+
+
+function login_user(){
+    if(isset($_POST['submit'])){
+        $username = escape_string($_POST['username']);
+        $password = escape_string($_POST['password']);
+
+        $query = query("SELECT * FROM users WHERE username = '{$username}' AND password ='{$password}' ");
+        confirm($query);
+
+        if (mysqli_num_rows($query) == 0){
+            set_message("Votre nom d'utilisateur ou votre mot de passe sont incorrects,<br> looser...");
+            redirect("login.php");
+        }else{
+            set_message("Je vous attendais Mr. Bond... <br> Ah! Vous êtes {$username}, procédez. ");
+            redirect("admin");
+        }
+    }
+}
 /***************************** BACK END FUNCTIONS********************/
 
 
