@@ -153,15 +153,36 @@ function login_user(){
         $username = escape_string($_POST['username']);
         $password = escape_string($_POST['password']);
 
-        $query = query("SELECT * FROM users WHERE username = '{$username}' AND password ='{$password}' ");
+        $query = query("SELECT * FROM users WHERE username = '$username' AND password = '$password' ");
         confirm($query);
 
-        if (mysqli_num_rows($query) == 0){
+        if (mysqli_num_rows($query) === 0){
             set_message("Votre nom d'utilisateur ou votre mot de passe sont incorrects,<br> looser...");
             redirect("login.php");
         }else{
-            set_message("Je vous attendais Mr. Bond... <br> Ah! Vous êtes {$username}, procédez. ");
+            set_message("Je vous attendais Mr. Bond... <br> Ah! Vous êtes $username, procédez. ");
             redirect("admin");
+        }
+    }
+}
+
+function send_message(){
+
+    if(isset($_POST['submit'])){
+
+        $to = "somemail@adress.com";
+        $form_name = $_POST['name'];
+        $form_email = $_POST['email'];
+        $form_subject = $_POST['subject'];
+        $form_message = $_POST['message'];
+
+        $headers = "From: {$form_name} {$form_email}";
+
+        $result = mail($to, $form_subject,$form_message,$headers);
+        if(!$result){
+            set_message("Message non envoyé");
+        }else{
+            set_message("Message envoyé");
         }
     }
 }
