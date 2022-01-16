@@ -124,7 +124,7 @@ while ($row = fetch_array($query)):
                 <span class="glyphicon glyphicon-star-empty"></span>
                 Anonymous
                 <span class="pull-right">12 days ago</span>
-                <p>I've alredy ordered another one!</p>
+                <p>I've already ordered another one!</p>
             </div>
         </div>
 
@@ -152,12 +152,16 @@ while ($row = fetch_array($query)):
      <form action="" class="form-inline">
         <div class="form-group">
             <label for="">Name</label>
+            <label>
                 <input type="text" class="form-control" >
-            </div>
+            </label>
+        </div>
              <div class="form-group">
             <label for="">Email</label>
-                <input type="test" class="form-control">
-            </div>
+                 <label>
+                     <input type="email" class="form-control">
+                 </label>
+             </div>
 
         <div>
             <h3>Your Rating</h3>
@@ -203,8 +207,3 @@ while ($row = fetch_array($query)):
 <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
     <!-- /.container -->
 
-
-
-</body>
-
-</html>

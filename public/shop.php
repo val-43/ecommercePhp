@@ -26,7 +26,3 @@
     <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
 </div>
 <!-- /.container -->
-
-</body>
-
-</html>

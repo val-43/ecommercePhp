@@ -64,7 +64,7 @@ function get_products(){
                                         <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                                         </h4>
                                         <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                                        <a class="btn btn-primary" target="_blank" href="item.php?id={$row['product_id']}">Add to cart</a>
+                                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add to cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -170,17 +170,18 @@ function send_message(){
 
     if(isset($_POST['submit'])){
 
-        $to = "somemail@adress.com";
+        $to = "test.test@gmail.com";
         $form_name = $_POST['name'];
         $form_email = $_POST['email'];
         $form_subject = $_POST['subject'];
         $form_message = $_POST['message'];
 
-        $headers = "From: {$form_name} {$form_email}";
+        $headers = "From: $form_name $form_email";
 
         $result = mail($to, $form_subject,$form_message,$headers);
         if(!$result){
             set_message("Message non envoyé");
+            redirect("contact.php");
         }else{
             set_message("Message envoyé");
         }
