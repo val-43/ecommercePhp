@@ -1,19 +1,15 @@
 <?php require_once("../resources/config.php"); ?>
+<?php require_once("cart.php"); ?>
 
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
 
-<?php
-
-$_SESSION['product_1'] = 1
-
-?>
     <!-- Page Content -->
     <div class="container">
 <!-- /.row --> 
 
 <div class="row">
-
-      <h1>Checkout</h1>
+    <h4 class="text-center bg-danger"><?= display_message() ?></h4>
+    <h1>Panier</h1>
 
 <form action="">
     <table class="table table-striped">
@@ -27,13 +23,7 @@ $_SESSION['product_1'] = 1
           </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>apple</td>
-                <td>$23</td>
-                <td>3</td>
-                <td>2</td>
-              
-            </tr>
+            <?php cart(); ?>
         </tbody>
     </table>
 </form>
